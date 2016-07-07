@@ -22,10 +22,13 @@
   )
 
 (defun gen-next(current-path sett)
-  (mapcar
-    #'(lambda(e) (cons e current-path))
-    (cdr (assoc (car current-path) sett))
-  )
+  (remove-if
+    #'(lambda(e) (member (car e) (cdr e)))
+    (mapcar
+        #'(lambda(e) (cons e current-path))
+        (cdr (assoc (car current-path) sett))
+        )
+    )
   )
 
 (setf sett '(
