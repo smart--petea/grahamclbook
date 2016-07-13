@@ -21,8 +21,17 @@
     )
   )
 
-;(defun my-tokens(str test start)
-  
+(defun my-tokens(str test start)
+  (let ((raw-tokens (remove-if #'(lambda(e) (zerop (length e))) (split-space str start))))
+    (if (null raw-tokens)
+      nil
+      (do ((rez nil (append rez (list (remove-if #'(lambda(e) (not (funcall test e))) (pop raw-tokens))))))
+        ((null raw-tokens) rez)
+        )
+      )
+    )
+  )
 
-;(print (split-space "salut ce  mai faci "))
-;(print (split-space "salut ce  mai faci " 3))
+
+
+(print (my-tokens "ab12 3cde. f" #'alpha-char-p 0))
