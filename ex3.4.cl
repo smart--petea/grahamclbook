@@ -6,9 +6,9 @@
   (r nil)
   )
 
-(defstruct bst-insert (obj bst <)
+(defun bst-insert (obj bst <)
   (if (null bst)
-    (make-node :elt obj)
+    (make-node :ellt obj)
     (let ((ellt (node-ellt bst)))
       (if (eql obj ellt)
         bst
@@ -29,10 +29,22 @@
     )
   )
 
-;(setf tr  (bst-insert 10 nil #'<))
-;(bst-insert 9 tr #'<)
-;(bst-insert 14 tr #'<)
-;(bst-insert 13 tr #'<)
-;(bst-insert 15 tr #'<)
+(setf tr  (bst-insert 10 nil #'<))
+(setf tr (bst-insert 9 tr #'<))
+(setf tr (bst-insert 14 tr #'<))
+(setf tr (bst-insert 13 tr #'<))
+(setf tr (bst-insert 15 tr #'<))
 
 ;(print tr)
+(defun bst-to-list(lst)
+  (if (null lst)
+    nil
+    (append
+       (bst-to-list (node-l lst))
+       (list (node-ellt lst))
+       (bst-to-list (node-r lst))
+       )
+    )
+  )
+
+(print (bst-to-list tr))
